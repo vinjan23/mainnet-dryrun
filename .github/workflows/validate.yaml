@@ -1,0 +1,45 @@
+---
+name: Validate Gentx
+
+on:  # yamllint disable-line rule:truthy
+  push:
+    branches:
+
+jobs:
+  changes:
+    runs-on: self-hosted
+    outputs:
+      gentx_files: ${{ steps.gentx.outputs.gentx_files }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: check file changes
+        id: check
+        run: |
+          echo "changed_files=$(git diff --name-status -r HEAD^1 HEAD |grep -v D |grep gentx |cut -f2)" >> $GITHUB_OUTPUT
+      - name: Check for gentxs
+        id: gentx
+        run: |
+          for file in "${{ steps.check.outputs.changed_files }}"; do
+                echo "gentx_files=$file" >> $GITHUB_OUTPUT
+          done
+
+  Validation:
+    runs-on: self-hosted
+    needs: changes
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Archwayd binary
+        run: |
+          wget https://github.com/archway-network/archway/releases/download/v0.5.2/archwayd_linux_amd64
+          mv archwayd_linux_amd64 archwayd
+          chmod +x archwayd
+      - name: Test the binary
+        run: ./archwayd version
+      - name: Validate gentx
+        run: |
+          chmod +x scripts/genesis-validate.sh
+          for file in "${{ needs.changes.outputs.gentx_files }}"; do
+            scripts/genesis-validate.sh $file
+          done
