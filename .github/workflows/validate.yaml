@@ -1,10 +1,7 @@
----
 name: Validate Gentx
-
-on:  # yamllint disable-line rule:truthy
+on:
   push:
-    branches:
-
+    pull_request:
 jobs:
   changes:
     runs-on: self-hosted
@@ -21,13 +18,15 @@ jobs:
       - name: Check for gentxs
         id: gentx
         run: |
-          for file in "${{ steps.check.outputs.changed_files }}"; do
-                echo "gentx_files=$file" >> $GITHUB_OUTPUT
-          done
-
+          if [ ! -z "${{ steps.check.outputs.changed_files }}" ]; then
+            for file in "${{ steps.check.outputs.changed_files }}"; do
+                  echo "gentx_files=$file" >> $GITHUB_OUTPUT
+            done
+          fi
   Validation:
     runs-on: self-hosted
     needs: changes
+    if: ${{ needs.changes.outputs.gentx_files != null }}
     steps:
       - uses: actions/checkout@v3
       - name: Install Archwayd binary
