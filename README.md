@@ -13,6 +13,10 @@ This repository will be used to do a mainnet dryrun process
 1. Coordinator starts their nodes and provides a list of `seed` & `persistent peers` that Validators will use to configure their servers.
 1. Validators can then start their nodes in coordinated fashion after Coordinator gives a go ahead.
 
+## Documentation
+
+More information how to become a validator can be found from Archway's documentation <https://docs.archway.io/validators/becoming-a-validator/overview>
+
 ## Configuration
 
 |Name   | Value   | Description  |
