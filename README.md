@@ -18,5 +18,4 @@ This repository will be used to do a mainnet dryrun process
 |Name   | Value   | Description  |
 |---|---|---|
 | ChainID   | archway-dry-run-1   | Name of the chain that will be used   |
-| Persistent Peers   | TBA   | Persistent peers to be configured   |
 | Seed node   | TBA   | Seed nodes to be configured   |
