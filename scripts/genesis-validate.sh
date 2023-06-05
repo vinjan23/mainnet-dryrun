@@ -51,7 +51,7 @@ sleep $TIMEOUT
 kill $(pgrep archwayd)
 
 # check for panics
-if  grep panic err; then
+if  grep panic: err; then
   echo "Panic found in log"
     exit 1
 fi
