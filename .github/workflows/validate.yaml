@@ -1,7 +1,9 @@
 name: Validate Gentx
 on:
   push:
-    pull_request:
+  pull_request:
+    branches:
+      - main
 jobs:
   changes:
     runs-on: self-hosted
