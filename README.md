@@ -22,4 +22,4 @@ More information how to become a validator can be found from Archway's documenta
 |Name   | Value   | Description  |
 |---|---|---|
 | ChainID   | archway-dry-run-1   | Name of the chain that will be used   |
-| Seed node   | 1c42aa4db2e7b251329757ac1e05441014d6b223@34.133.237.198   | Seed nodes to be configured   |
+| Seed node   | 1c42aa4db2e7b251329757ac1e05441014d6b223@34.133.237.198:26656   | Seed nodes to be configured   |
