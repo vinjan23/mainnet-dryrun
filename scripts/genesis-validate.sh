@@ -19,6 +19,7 @@ REQ_FEE="180000000000000000"
 
 # copy initial genesis
 mkdir -p $ARCHDIR/config/gentx
+gunzip $NETWORK/init_genesis.json.gz
 cp $NETWORK/init_genesis.json $ARCHDIR/config/genesis.json
 
 # check that GENTX_FILE is not empty
