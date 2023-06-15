@@ -3,7 +3,6 @@ on:
   push:
   pull_request:
     branches:
-      - main
 jobs:
   changes:
     runs-on: ubuntu-20.04
@@ -16,7 +15,7 @@ jobs:
       - name: check file changes
         id: check
         run: |
-          echo "changed_files=$(git diff --name-status -r HEAD^1 HEAD |grep -v D |grep gentx |cut -f2)" >> $GITHUB_OUTPUT
+          echo "changed_files=$(git diff --name-status -r HEAD^1 HEAD |grep -v D |grep "mainnet-dryrun-2/gentx" |cut -f2)" >> $GITHUB_OUTPUT
       - name: Check for gentxs
         id: gentx
         run: |
