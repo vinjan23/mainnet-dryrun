@@ -8,6 +8,9 @@ ARCHD="./archwayd"
 ARCHDIR=".archway"
 GENTX_FILE=$1
 
+# Network
+NETWORK="mainnet-dryrun-2"
+
 # Timeout
 TIMEOUT="60s"
 
@@ -16,7 +19,7 @@ REQ_FEE="180000000000000000"
 
 # copy initial genesis
 mkdir -p $ARCHDIR/config/gentx
-cp init_genesis.json $ARCHDIR/config/genesis.json
+cp $NETWORK/init_genesis.json $ARCHDIR/config/genesis.json
 
 # check that GENTX_FILE is not empty
 if [ -z "$GENTX_FILE" ]; then
@@ -40,13 +43,13 @@ fi
 
 
 # collect gentx
-$ARCHD collect-gentxs --home $ARCHDIR
+$ARCHD collect-gentxs --log_level error --home $ARCHDIR
 
 # validate genesis
-$ARCHD validate-genesis --home $ARCHDIR
+$ARCHD validate-genesis --log_level error --home $ARCHDIR
 
 # start node and shut it down after timeout
-$ARCHD start --home $ARCHDIR 2>&1 | tee -a err &
+$ARCHD start --log_level error --home $ARCHDIR 2>&1 | tee -a err &
 sleep $TIMEOUT
 kill $(pgrep archwayd)
 
